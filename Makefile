@@ -1,4 +1,4 @@
-LIBS = -lcurl -lcjson -lncurses
+LIBS = -lcurl -lcjson
 TARGET = torrent-search
 SRC = main.c
 
