@@ -21,6 +21,7 @@
 #include <sys/ioctl.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include "download.h"
 
 #define API_BASE "https://apibay.org/q.php?q="
 #define QUERY_MAX 512
@@ -78,9 +79,9 @@ static void init_pair_highlight (void) {
     if (start_color() != OK)
         return;
     if (use_default_colors() == OK)
-        init_pair(1, COLOR_WHITE, -1);
+        init_pair(1, COLOR_WHITE, COLOR_CYAN);
     else
-        init_pair(1, COLOR_WHITE, COLOR_BLUE);
+        init_pair(1, COLOR_WHITE, COLOR_CYAN);
 }
 
 static void destroy_windows (void) {
@@ -332,8 +333,8 @@ static void draw_details (WINDOW *w, const TorrentResult *r) {
     int ymax = 1 + inner_h;
     int row = 1;
 
-    mvwprintw(w, row++, 2, "Nome:");
-    row = print_wrapped(w, row, 2, ymax, inner_w, r->name);
+    mvwprintw(w, row, 2, "Nome:");
+    row = print_wrapped(w, row++, 2, ymax, inner_w, r->name);
 
     if (row < ymax)
         mvwprintw(w, row++, 2, "Seeders: %d", r->seeders);
@@ -399,19 +400,19 @@ static void draw_list (WINDOW *w, const TorrentResult *items, size_t n,
 
         if (idx == sel) {
             if (has_colors())
-                wattron(w, COLOR_PAIR(1) | A_BOLD);
+                wattron(w, COLOR_PAIR(1) | A_BOLD | A_REVERSE);
             else
                 wattron(w, A_REVERSE);
         }
         mvwprintw(w, r + 1, 2, "%s", rowtxt);
+        wclrtoeol(w);
         if (idx == sel) {
             if (has_colors())
-                wattroff(w, COLOR_PAIR(1) | A_BOLD);
+                wattroff(w, COLOR_PAIR(1) | A_BOLD | A_REVERSE);
             else
                 wattroff(w, A_REVERSE);
             mvwaddch(w, r + 1, 1, ACS_RARROW);
         }
-        wclrtoeol(w);
     }
     wnoutrefresh(w);
 }
@@ -668,7 +669,7 @@ int tui_run (struct TorrentResult **results, size_t *count) {
 
         if (ch == '\n' || ch == KEY_ENTER || ch == '\r') {
             if (sel < *count && (*results)[sel].magnet)
-                open_magnet_xdg((*results)[sel].magnet);
+                download((*results)[sel].magnet);
             continue;
         }
     }

@@ -14,10 +14,6 @@ all: $(TARGET)
 $(TARGET): $(SRC)
 	gcc $(CFLAGS) $(SRC) $(LIBS) -o $(TARGET)
 
-# Base de compilação para clangd/Cursor (executar após clonar ou mudar flags)
-compile_commands.json: Makefile $(SRC) gen_compile_commands.py
-	python3 gen_compile_commands.py
-
 check: $(TARGET)
 	@echo "=== Smoke: saída não-TTY (sem ncurses) ==="
 	@./$(TARGET) opensource 2>&1 | head -n 6
