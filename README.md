@@ -61,7 +61,7 @@ Quando executado em um terminal interativo, a interface gráfica ncurses é ativ
 
 **Navegação:**
 - ⬆ / ⬇ - Navegar entre resultados
-- Enter - Ver detalhes / Copiar magnet link
+- Enter - Download do arquivo escolhido na pasta Downloads.
 - q - Sair
 
 
@@ -123,3 +123,7 @@ Contribuições são bem-vindas! Por favor:
 ## Suporte
 
 Para relatar bugs ou sugerir melhorias, abra uma issue no repositório.
+
+## Próximos passos
+
+O projeto ainda não está completamente pronto e não possuo expectatativas de quando consiguirei terminá-lo. Entretanto, pretendo implementar a opção para abrir arquivo no qbittorrent, e copiar magnet link. Além disso, pesquisarei mais APIs para adicionar para uma base de dados de pesquisa maior.
