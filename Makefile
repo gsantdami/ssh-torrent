@@ -6,8 +6,12 @@ endif
 
 LIBS = -lcurl -lcjson $(NCURSES_LIBS)
 TARGET = torrent-search
-SRC = main.c tui.c
-CFLAGS = -std=c99 -Wall -Wextra -D_POSIX_C_SOURCE=200809L $(NCURSES_CFLAGS)
+SRC_DIR = src
+INCLUDE_DIR = include
+BUILD_DIR = build
+
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/tui.c
+CFLAGS = -std=c99 -Wall -Wextra -D_POSIX_C_SOURCE=200809L -I$(INCLUDE_DIR) $(NCURSES_CFLAGS)
 
 all: $(TARGET)
 
@@ -28,5 +32,5 @@ install: $(TARGET)
 uninstall: $(TARGET)
 	rm -f $(TARGET) /usr/local/bin/$(TARGET)
 
-clean: $(TARGET)
+clean:
 	rm -f $(TARGET)

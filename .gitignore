@@ -1,6 +1,40 @@
-*.out
+# Binários compilados
 *.o
-compile_commands.json
+*.a
+*.so
+*.dylib
+torrent-search
+
+# Output files
+*.out
+*.exe
+
+# Build artifacts
+build/
+dist/
+*.d
+
+# IDE e editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
 .clangd
 .cursorrules
-torrent-search
+
+# LSP
+compile_commands.json
+.clangd
+
+# Debug
+*.gch
+vgcore.*
+core.*
+
+# Temporary files
+*.tmp
+.tmp/
+*.bak
+*.backup
